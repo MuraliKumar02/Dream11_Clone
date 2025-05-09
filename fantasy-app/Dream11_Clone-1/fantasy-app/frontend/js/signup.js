@@ -68,7 +68,7 @@ async function handleSignup(username, email, password) {
       successMessage.style.display = "flex";
 
       setTimeout(() => {
-        window.location.href = "./fantasy-app/frontend/html/login.html"; // redirect to login page after 3 sec
+        window.location.href = "login.html"; // redirect to login page after 3 sec
       }, 3000);
     } else {
       alert(result.message || "Signup failed. Try again.");

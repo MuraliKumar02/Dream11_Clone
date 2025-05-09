@@ -14,7 +14,7 @@ function isValidEmail(email) {
     }
   
     try {
-      const response = await fetch('/fantasy-app/api/send-otp', {
+      const response = await fetch('https://your-backend.com/api/send-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ function isValidEmail(email) {
     }
   
     try {
-      const response = await fetch('/fantasy-app/api/verify-otp', {
+      const response = await fetch('https://your-backend.com/api/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ function isValidEmail(email) {
   
       if (response.ok) {
         alert('OTP verified successfully!');
-        window.location.href = './fantasy-app/frontend/html/create.html'; // Redirect on success
+        window.location.href = './html/create.html'; // Redirect on success
       } else {
         alert('OTP verification failed: ' + data.message);
       }

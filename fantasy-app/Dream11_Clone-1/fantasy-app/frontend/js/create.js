@@ -48,7 +48,7 @@
 
     try {
       // Example payload: include email/token if needed
-      const response = await fetch("/fantasy-app/api/reset-password", {
+      const response = await fetch("https://your-backend.com/api/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
