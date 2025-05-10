@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   // Get references to DOM elements
   const togglePasswordBtn = document.getElementById("togglePassword");
@@ -75,3 +76,4 @@ document.addEventListener("DOMContentLoaded", function () {
     handleLogin(email, password);
   });
 });
+

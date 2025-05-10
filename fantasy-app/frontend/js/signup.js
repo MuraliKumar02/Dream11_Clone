@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   // Get DOM elements
   const signupForm = document.getElementById("signupForm");
@@ -90,4 +91,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     handleSignup(username, email, password);
   });
+
 });

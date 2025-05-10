@@ -22,11 +22,13 @@ function signup() {
   });
 
   function goToLogin() {
+
     window.location.href = './fantasy-app/frontend/html/login.html';
   }
   
   function goToSignup() {
     window.location.href = './fantasy-app/frontend/html/signup.html';
+
   }
   
   // Attach event listeners to buttons

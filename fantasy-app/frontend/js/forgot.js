@@ -1,3 +1,4 @@
+
 // Wait for form to be loaded before accessing elements
 document.addEventListener('DOMContentLoaded', () => {
   const forgotForm = document.getElementById('forgot-form');
@@ -17,10 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const email = emailInput.value.trim();
 
+
     if (!isValidEmail(email)) {
       alert('Please enter a valid email address.');
       return;
     }
+
 
     try {
       const response = await fetch('/fantasy-app/api/send-otp', {
@@ -42,7 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+
   // Auto move to next OTP input and handle backspace
+
   otpBoxes.forEach((box, index) => {
     box.addEventListener('input', () => {
       if (box.value.length === 1 && index < otpBoxes.length - 1) {
@@ -57,10 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+
   // Verify OTP with backend
   verifyOtpBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     const otp = Array.from(otpBoxes).map(box => box.value).join('');
+
 
     if (otp.length < 6) {
       alert('Please enter all 6 digits of the OTP.');
@@ -87,4 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(error);
     }
   });
+
 });
+

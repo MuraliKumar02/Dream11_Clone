@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   // Access the form and input elements
   const createForm = document.getElementById('create-form'); // Assuming create-form exists in your HTML
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const toast = document.getElementById('toast');
   
   // Password visibility toggle function
+
   function toggleVisibility(id, icon) {
     const field = document.getElementById(id);
     if (field.type === "password") {
@@ -23,12 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Password strength check function
   function checkStrength() {
     const password = newPasswordInput.value;
+
     let strength = 0;
 
     if (password.length >= 8) strength++;
     if (/[A-Z]/.test(password)) strength++;
     if (/[0-9]/.test(password)) strength++;
     if (/[@$!%*?&#]/.test(password)) strength++;
+
 
     strengthBar.style.width = `${strength * 25}%`;
     strengthBar.style.background = ["red", "orange", "yellowgreen", "green"][strength - 1] || "transparent";
@@ -38,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function validatePasswords() {
     const newPassword = newPasswordInput.value.trim();
     const confirmPassword = confirmPasswordInput.value.trim();
+
 
     // Client-side validations
     if (newPassword === "" || confirmPassword === "") {
@@ -55,26 +60,32 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+
     try {
       // Example payload: include email/token if needed
       const response = await fetch("/fantasy-app/api/reset-password", {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
           password: newPassword,
+
           // Optional: include email/token if necessary
+
         })
       });
 
       const result = await response.json();
 
       if (response.ok) {
+
         // Unlocking animation
         const box = document.getElementById("lockerBox");
         lockIcon.innerHTML = '<i class="fas fa-unlock"></i>';
         unlockSound.play();
+
         box.classList.add("unlocking");
         showToast();
 
@@ -91,8 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+
   // Show toast notification
   function showToast() {
+
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 3000);
   }
@@ -106,3 +119,4 @@ document.addEventListener('DOMContentLoaded', () => {
   newPasswordInput.addEventListener('input', checkStrength);
   confirmPasswordInput.addEventListener('input', checkStrength);
 });
+
