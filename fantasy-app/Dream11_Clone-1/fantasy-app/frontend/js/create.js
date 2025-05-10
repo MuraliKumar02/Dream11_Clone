@@ -1,16 +1,4 @@
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Access the form and input elements
-  const createForm = document.getElementById('create-form'); // Assuming create-form exists in your HTML
-  const newPasswordInput = document.getElementById('new-password');
-  const confirmPasswordInput = document.getElementById('confirm-password');
-  const strengthBar = document.getElementById('strength-bar');
-  const lockIcon = document.getElementById('lockIcon');
-  const unlockSound = document.getElementById('unlock-sound');
-  const toast = document.getElementById('toast');
-  
-  // Password visibility toggle function
-
   function toggleVisibility(id, icon) {
     const field = document.getElementById(id);
     if (field.type === "password") {
@@ -22,10 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Password strength check function
   function checkStrength() {
-    const password = newPasswordInput.value;
-
+    const password = document.getElementById("new-password").value;
+    const bar = document.getElementById("strength-bar");
     let strength = 0;
 
     if (password.length >= 8) strength++;
@@ -33,16 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (/[0-9]/.test(password)) strength++;
     if (/[@$!%*?&#]/.test(password)) strength++;
 
-
-    strengthBar.style.width = `${strength * 25}%`;
-    strengthBar.style.background = ["red", "orange", "yellowgreen", "green"][strength - 1] || "transparent";
+    bar.style.width = `${strength * 25}%`;
+    bar.style.background = ["red", "orange", "yellowgreen", "green"][strength - 1] || "transparent";
   }
 
-  // Validate and submit new password
   async function validatePasswords() {
-    const newPassword = newPasswordInput.value.trim();
-    const confirmPassword = confirmPasswordInput.value.trim();
-
+    const newPassword = document.getElementById("new-password").value.trim();
+    const confirmPassword = document.getElementById("confirm-password").value.trim();
 
     // Client-side validations
     if (newPassword === "" || confirmPassword === "") {
@@ -60,32 +44,29 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Optional: Check for more complex password rules here
 
     try {
       // Example payload: include email/token if needed
-      const response = await fetch("/fantasy-app/api/reset-password", {
-
+      const response = await fetch("https://your-backend.com/api/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
           password: newPassword,
-
-          // Optional: include email/token if necessary
-
+          // email: "user@example.com", // Optional if required
+          // token: "otp_or_token_from_previous_step" // Optional
         })
       });
 
       const result = await response.json();
 
       if (response.ok) {
-
-        // Unlocking animation
         const box = document.getElementById("lockerBox");
-        lockIcon.innerHTML = '<i class="fas fa-unlock"></i>';
-        unlockSound.play();
-
+        const icon = document.getElementById("lockIcon");
+        icon.innerHTML = '<i class="fas fa-unlock"></i>';
+        document.getElementById("unlock-sound").play();
         box.classList.add("unlocking");
         showToast();
 
@@ -102,21 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-
-  // Show toast notification
   function showToast() {
-
+    const toast = document.getElementById("toast");
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 3000);
   }
-
-  // Attach event listeners to form and password inputs
-  createForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    validatePasswords();
-  });
-
-  newPasswordInput.addEventListener('input', checkStrength);
-  confirmPasswordInput.addEventListener('input', checkStrength);
-});
 
